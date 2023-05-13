@@ -1,0 +1,14 @@
+# [START gae_python37_cloudsql_config]
+runtime: nodejs18
+
+env_variables:
+  ACCESS_TOKEN_SECRET = gugYAF653274t3urg4jrbhjq4rvvrwrvw3523952q34ybadsblaslfhdafas2777
+  REFRESH_TOKEN_SECRET = 874UGugusfjkheatsecfugcehfhshfwiepwjef934095uhfdfnsbfeurutg33r80
+
+  # DATABASE
+  DB_HOST = localhost
+  DB_DATABASE = auth_db
+  DB_NAME = root
+  DB_PASSWORD = 
+  DB_DIALECT = mysql
+# [END gae_python37_cloudsql_config]
