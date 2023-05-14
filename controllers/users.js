@@ -1,6 +1,5 @@
 import Users from "../models/userModel.js";
 import bcrypt from "bcrypt";
-import { response } from "express";
 import jwt from "jsonwebtoken";
 
 export const getUsers = async (req, res) => {
@@ -8,11 +7,30 @@ export const getUsers = async (req, res) => {
     const users = await Users.findAll({
       attributes: ["id", "name", "email"],
     });
-    res.json(users);
+    res.json({
+      message: 'Users fetched successfully',
+      users
+    });
   } catch (error) {
     console.log(error);
   }
 };
+
+export const getUserById = async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const user = await Users.findByPk(userId,{
+      attributes: ["id", "name", "email"],
+    });
+    if(!user) return res.status(404).json({msg: "User tidak ditemukan"})
+    res.status(200).json({
+      message: 'Users fetched successfully',
+      user
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const Register = async (req, res) => {
   const { name, email, password, confPassword } = req.body;
@@ -57,7 +75,14 @@ export const Login = async (req, res) => {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
     });
-    res.json({ accessToken });
+    res.json({
+      message: 'success',
+      data:{
+        name,
+        email,
+        accessToken
+      }
+       });
   } catch (error) {
     res.status(404).json({ msg: "Email tidak ditemukan" });
   }
