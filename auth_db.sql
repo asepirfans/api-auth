@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2023 at 08:33 AM
+-- Generation Time: May 14, 2023 at 06:20 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -24,11 +24,37 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `laundry`
+--
+
+CREATE TABLE `laundry` (
+  `id` int(11) NOT NULL,
+  `nama_laundry` varchar(255) DEFAULT NULL,
+  `tanggal_berdiri` datetime DEFAULT NULL,
+  `kota` varchar(255) DEFAULT NULL,
+  `latitude` varchar(255) DEFAULT NULL,
+  `longitude` varchar(255) DEFAULT NULL,
+  `photo` text DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `laundry`
+--
+
+INSERT INTO `laundry` (`id`, `nama_laundry`, `tanggal_berdiri`, `kota`, `latitude`, `longitude`, `photo`, `createdAt`, `updatedAt`) VALUES
+(1, 'Cuci Bersih', '1970-01-01 07:30:22', 'Garut', '-7.227906', '107.908699', NULL, '2023-05-14 03:01:53', '2023-05-14 03:01:53'),
+(2, 'LaundryKuy', '2010-02-02 00:00:00', 'Garut', '-7.227906', '107.908699', NULL, '2023-05-14 03:05:23', '2023-05-14 03:05:23');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -42,11 +68,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `refresh_token`, `createdAt`, `updatedAt`) VALUES
-(1, 'Asep', 'asep@gmail.com', '$2b$10$aYGC8/UqXWayX8nPS/5GYeFozbjP0WBJDRtKbufzfboX6vHFktHYm', NULL, '2023-05-13 02:39:10', '2023-05-13 04:32:55');
+('user-cRvuOHg1Qc', 'irfan', 'irfan@gmail.com', '$2b$10$0m4ShnUulqGVi3ACwPmVzO2IjxXSRK8NwT6.rX4rITFnaXHTptHh2', NULL, '2023-05-14 04:10:04', '2023-05-14 04:10:04'),
+('user-oIaaIah00q', 'awan', 'awan@gmail.com', '$2b$10$dXF8ZdA39Ep8YuOxuttvKeF8EHiN558X1oBalIOBaCf3bkBk1T07S', NULL, '2023-05-14 04:09:40', '2023-05-14 04:09:40');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `laundry`
+--
+ALTER TABLE `laundry`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -59,10 +92,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT for table `laundry`
 --
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `laundry`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
