@@ -1,9 +1,15 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
+import { nanoid } from "nanoid";
 
 const { DataTypes } = Sequelize;
 
 const Laundry = db.define('laundry', {
+    id: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        defaultValue: () => `laundry-${nanoid(10)}`
+      },
     nama_laundry:{
         type : DataTypes.STRING
     },

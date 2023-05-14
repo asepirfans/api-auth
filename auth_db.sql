@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2023 at 06:20 AM
+-- Generation Time: May 14, 2023 at 03:40 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `laundry` (
-  `id` int(11) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `nama_laundry` varchar(255) DEFAULT NULL,
   `tanggal_berdiri` datetime DEFAULT NULL,
   `kota` varchar(255) DEFAULT NULL,
@@ -44,8 +44,7 @@ CREATE TABLE `laundry` (
 --
 
 INSERT INTO `laundry` (`id`, `nama_laundry`, `tanggal_berdiri`, `kota`, `latitude`, `longitude`, `photo`, `createdAt`, `updatedAt`) VALUES
-(1, 'Cuci Bersih', '1970-01-01 07:30:22', 'Garut', '-7.227906', '107.908699', NULL, '2023-05-14 03:01:53', '2023-05-14 03:01:53'),
-(2, 'LaundryKuy', '2010-02-02 00:00:00', 'Garut', '-7.227906', '107.908699', NULL, '2023-05-14 03:05:23', '2023-05-14 03:05:23');
+('laundry-ebNANpOoI5', 'LaundryKuy', '2010-02-02 00:00:00', 'Garut', '-7.227906', '107.908699', NULL, '2023-05-14 13:39:18', '2023-05-14 13:39:18');
 
 -- --------------------------------------------------------
 
@@ -68,7 +67,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `refresh_token`, `createdAt`, `updatedAt`) VALUES
-('user-cRvuOHg1Qc', 'irfan', 'irfan@gmail.com', '$2b$10$0m4ShnUulqGVi3ACwPmVzO2IjxXSRK8NwT6.rX4rITFnaXHTptHh2', NULL, '2023-05-14 04:10:04', '2023-05-14 04:10:04'),
+('user-cRvuOHg1Qc', 'irfan', 'irfan@gmail.com', '$2b$10$0m4ShnUulqGVi3ACwPmVzO2IjxXSRK8NwT6.rX4rITFnaXHTptHh2', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWNSdnVPSGcxUWMiLCJuYW1lIjoiaXJmYW4iLCJlbWFpbCI6ImlyZmFuQGdtYWlsLmNvbSIsImlhdCI6MTY4NDA2ODQ4OSwiZXhwIjoxNjg0MTU0ODg5fQ._YD4ogv3910yvmIJ64qBFESpKe4RCEmlmSutbCzU8yU', '2023-05-14 04:10:04', '2023-05-14 12:48:09'),
 ('user-oIaaIah00q', 'awan', 'awan@gmail.com', '$2b$10$dXF8ZdA39Ep8YuOxuttvKeF8EHiN558X1oBalIOBaCf3bkBk1T07S', NULL, '2023-05-14 04:09:40', '2023-05-14 04:09:40');
 
 --
@@ -86,16 +85,6 @@ ALTER TABLE `laundry`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `laundry`
---
-ALTER TABLE `laundry`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
