@@ -8,10 +8,20 @@ export const getUsers = async (req, res) => {
       attributes: ["id", "name", "email"],
     });
     res.json({
-      message: 'Users fetched successfully',
-      users
+      success: true,
+      statusCode: res.statusCode,
+      message: "Users fetched successfully",
+      users,
     });
   } catch (error) {
+    res.json({
+      success: false,
+      statusCode: res.statuscode,
+      error: {
+        message: error.message,
+        uri: req.originalUrl,
+      },
+    });
     console.log(error);
   }
 };
@@ -19,22 +29,59 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
   const userId = req.params.id;
   try {
-    const user = await Users.findByPk(userId,{
+    const user = await Users.findByPk(userId, {
       attributes: ["id", "name", "email"],
     });
-    if(!user) return res.status(404).json({msg: "User tidak ditemukan"})
-    res.status(200).json({
-      message: 'Users fetched successfully',
-      user
+    if (!user)
+      return res.status(404).json({
+        success: false,
+        statusCode: res.statusCode,
+        msg: "User not found",
+      });
+    res.json({
+      success: true,
+      statusCode: res.statusCode,
+      message: "Users fetched successfully",
+      user,
     });
   } catch (error) {
+    res.json({
+      success: false,
+      statusCode: res.statuscode,
+      error: {
+        message: error.message,
+        uri: req.originalUrl,
+      },
+    });
     console.log(error);
   }
-}
+};
 
 export const Register = async (req, res) => {
   const { name, email, password, confPassword } = req.body;
-  if (password != confPassword) return res.status(400).json({ msg: "Password dan Confirm Password tidak cocok" });
+  const user = await Users.findOne({
+    where: {
+      email: email,
+    },
+  });
+  if (!name || !email || !password || !confPassword)
+    return res.status(400).json({
+      success: false,
+      statusCode: res.statusCode,
+      message: "Please complete input data",
+    });
+  if (user)
+    return res.status(400).json({
+      success: false,
+      statusCode: res.statusCode,
+      msg: "Email anda telah terdaftar!",
+    });
+  if (password != confPassword)
+    return res.status(400).json({
+      success: false,
+      statusCode: res.statusCode,
+      msg: "Password dan Confirm Password tidak cocok",
+    });
   const salt = await bcrypt.genSalt();
   const hashPassword = await bcrypt.hash(password, salt);
   try {
@@ -43,8 +90,20 @@ export const Register = async (req, res) => {
       email: email,
       password: hashPassword,
     });
-    res.json({ msg: "User Created" });
+    res.json({
+      success: true,
+      statusCode: res.statusCode,
+      message: "User Created",
+    });
   } catch (error) {
+    res.json({
+      success: false,
+      statusCode: res.statuscode,
+      error: {
+        message: error.message,
+        uri: req.originalUrl,
+      },
+    });
     console.log(error);
   }
 };
@@ -57,7 +116,12 @@ export const Login = async (req, res) => {
       },
     });
     const match = await bcrypt.compare(req.body.password, user[0].password);
-    if (!match) return res.status(400).json({ msg: "Password Wrong!" });
+    if (!match)
+      return res.status(400).json({
+        success: false,
+        statusCode: res.statusCode,
+        msg: "Password Wrong!",
+      });
     const userId = user[0].id;
     const name = user[0].name;
     const email = user[0].email;
@@ -76,15 +140,24 @@ export const Login = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
     res.json({
-      message: 'success',
-      data:{
+      success: true,
+      statusCode: res.statusCode,
+      message: "success",
+      data: {
         name,
         email,
-        accessToken
-      }
-       });
+        accessToken,
+      },
+    });
   } catch (error) {
-    res.status(404).json({ msg: "Email Not Found" });
+    res.json({
+      success: false,
+      statusCode: res.statuscode,
+      error: {
+        message: "Email Not Found",
+        uri: req.originalUrl,
+      },
+    });
   }
 };
 
